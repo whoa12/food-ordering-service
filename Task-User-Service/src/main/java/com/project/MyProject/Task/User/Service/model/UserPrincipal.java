@@ -9,7 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-public class UserPrincipal implements UserDetails{
+public class  UserPrincipal implements UserDetails{
 	
 	@Autowired
 	private User user;
