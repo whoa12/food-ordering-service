@@ -11,6 +11,6 @@ public interface ICartService {
      double calculateTotal(Cart cart) throws Exception;
      Cart findCartById(Long id) throws Exception;
      Cart findCartByUserId(Long userId) throws Exception;
-     Cart clearCart(String jwt) throws Exception;
+     Cart clearCart(Long userId) throws Exception;
 
 }
