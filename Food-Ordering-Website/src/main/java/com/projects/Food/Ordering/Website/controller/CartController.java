@@ -20,9 +20,11 @@ public class CartController {
     private final CartServiceImpl cartService;
     private final UserServiceImpl userService;
 
-    @GetMapping("/cart/add")
+    @PostMapping("/cart/add")
     public ResponseEntity<CartItems> addCartItemToCart(@RequestBody AddCartItemRequest req,
-                                                       @RequestHeader("Authorization") String jwt) throws Exception {
+                                                       @RequestHeader("Authorization") String authHeader) throws Exception {
+        System.out.println(" Inside /cart/add controller");
+        String jwt = authHeader.startsWith("Bearer ") ? authHeader.substring(7) : authHeader;
         CartItems cartItem = cartService.addToCart(req, jwt);
 
         return new ResponseEntity<>(cartItem, HttpStatus.OK);
@@ -41,7 +43,7 @@ public class CartController {
                                                     @RequestHeader("Authorization") String jwt) throws Exception {
         Cart cart = cartService.removeItem(id, jwt);
 
-        return new ResponseEntity<>(cart, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
     @PutMapping("/cart/clear")

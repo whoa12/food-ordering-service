@@ -1,5 +1,6 @@
 package com.projects.Food.Ordering.Website.repository;
 
+import com.projects.Food.Ordering.Website.model.CategoryEntity;
 import com.projects.Food.Ordering.Website.model.Food;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,5 @@ public interface FoodRepository extends JpaRepository<Food, Long> {
     List<Food> searchFood(@Param("keyword") String keyword);
 
 
+    List<Food> findByFoodCategoryEntity(CategoryEntity categoryEntity);
 }

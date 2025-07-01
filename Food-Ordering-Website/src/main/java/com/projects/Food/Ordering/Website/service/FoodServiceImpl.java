@@ -1,6 +1,6 @@
 package com.projects.Food.Ordering.Website.service;
 
-import com.projects.Food.Ordering.Website.model.Category;
+import com.projects.Food.Ordering.Website.model.CategoryEntity;
 import com.projects.Food.Ordering.Website.model.Food;
 import com.projects.Food.Ordering.Website.model.Restaurant;
 import com.projects.Food.Ordering.Website.repository.FoodRepository;
@@ -18,15 +18,16 @@ public class FoodServiceImpl implements IFoodService{
 
     private final FoodRepository foodRepository;
     @Override
-    public Food createFood(CreateFoodRequest req, Category category, Restaurant restaurant) {
+    public Food createFood(CreateFoodRequest req, CategoryEntity categoryEntity, Restaurant restaurant) {
         Food newFood = new Food();
-        newFood.setFoodCategory(category);
+        newFood.setFoodCategoryEntity(categoryEntity);
         newFood.setRestaurant(restaurant);
         newFood.setDescription(req.getDescription());
         newFood.setName(req.getName());
         newFood.setPrice(req.getPrice());
         newFood.setImages(req.getImages());
         newFood.setVeg(req.isVeg());
+        newFood.setAvailable(true);
         Food savedFood= foodRepository.save(newFood);
         restaurant.getFoodItems().add(savedFood);
         return foodRepository.save(savedFood);
@@ -49,13 +50,13 @@ public class FoodServiceImpl implements IFoodService{
         if(foodCategory!=null && !foodCategory.equals("")){
             foodItems = searchFoodByCategory(foodItems, foodCategory);
         }
-        return null;
+        return foodItems;
     }
 
     private List<Food> searchFoodByCategory(List<Food> foodItems, String foodCategory) {
         return foodItems.stream().filter(food -> {
-            if(food.getFoodCategory()!=null){
-                return food.getFoodCategory().getName().equals(foodCategory);
+            if(food.getFoodCategoryEntity()!=null && food.getFoodCategoryEntity().getName()!=null){
+                return food.getFoodCategoryEntity().getName().equalsIgnoreCase(foodCategory);
             }
             return false;
         }).collect(Collectors.toList());
@@ -88,5 +89,10 @@ public class FoodServiceImpl implements IFoodService{
         Food food = findFoodById(foodId);
         food.setAvailable(!food.isAvailable());
         return foodRepository.save(food);
+    }
+
+    @Override
+    public List<Food> findFoodItemByCategory(CategoryEntity categoryEntity) {
+        return foodRepository.findByFoodCategoryEntity(categoryEntity);
     }
 }

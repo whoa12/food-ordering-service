@@ -51,7 +51,7 @@ public class CartServiceImpl implements ICartService{
             throw new Exception("Not found!");
         }
         CartItems item = cartItemsOptional.get();
-        item.setQuantity(item.getQuantity());
+        item.setQuantity(quantity);
         item.setTotalPrice(item.getFood().getPrice()*quantity);
         return cartItemRepository.save(item);
     }

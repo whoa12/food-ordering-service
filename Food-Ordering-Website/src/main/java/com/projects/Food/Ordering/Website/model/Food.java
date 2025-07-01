@@ -22,8 +22,9 @@ public class Food {
     private double price;
 
 
-    @Enumerated(EnumType.STRING)
-    private Category foodCategory;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CategoryEntity foodCategoryEntity;
 
     @Column(length = 1000)
     @ElementCollection
@@ -32,6 +33,7 @@ public class Food {
     private boolean available;
 
     @ManyToOne
+    @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
     private boolean isVeg;

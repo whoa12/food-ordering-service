@@ -1,6 +1,7 @@
 package com.projects.Food.Ordering.Website.request;
 
-import com.projects.Food.Ordering.Website.model.Category;
+import com.projects.Food.Ordering.Website.model.CategoryEntity;
+import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.util.List;
@@ -11,8 +12,10 @@ public class CreateFoodRequest {
     private String name;
     private String description;
     private Long price;
-    private Category category;
+
+    private CategoryEntity categoryEntity;
+    @Column(length = 1000)
     private List<String> images;
-    private long restaurantId;
+    private Long restaurantId;
     private boolean veg;
 }

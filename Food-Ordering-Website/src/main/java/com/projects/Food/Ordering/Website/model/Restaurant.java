@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -18,7 +17,7 @@ import java.util.List;
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long restaurantId;
+    private Long id;
     @OneToOne
     private User owner;
     private String description;
@@ -47,5 +46,8 @@ public class Restaurant {
 
 
     private LocalDate registrationDate;
+
+    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
+    public List<CategoryEntity> foodCategoryEntity;
 
 }

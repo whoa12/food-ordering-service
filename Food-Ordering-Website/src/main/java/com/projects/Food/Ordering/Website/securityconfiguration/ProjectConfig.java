@@ -15,6 +15,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 
 @Configuration
@@ -24,7 +25,10 @@ public class ProjectConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests(auth ->
+        return http
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .authorizeHttpRequests(auth ->
                 auth.requestMatchers("/api/admin/**")
                         .hasAnyRole("RESTAURANT_OWNER", "ADMIN")
                         .requestMatchers("/api/**")
@@ -42,9 +46,11 @@ public class ProjectConfig {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration cfg = new CorsConfiguration();
-                cfg.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+                cfg.setAllowedOrigins(Arrays.asList("http://localhost:5174"));
                 cfg.setAllowedMethods(Collections.singletonList("*"));
                 cfg.setExposedHeaders(Arrays.asList("Authorization"));
+                cfg.setAllowedHeaders(Collections.singletonList("*"));
+                cfg.setAllowCredentials(true);
                 cfg.setMaxAge(3600L);
                 return cfg;
             }

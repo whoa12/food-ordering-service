@@ -15,10 +15,12 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User findUserByJwt(String jwt) throws Exception {
-        String email = jwtGenerator.getEmailFromJwt(jwt);
         if(jwt!=null && jwt.startsWith("Bearer ")){
             jwt = jwt.substring(7);
         }
+        String email = jwtGenerator.getEmailFromJwt(jwt);
+        System.out.println(("email gotten:"+ email));
+
         User user = findUserByEmail(email);
         return user;
     }

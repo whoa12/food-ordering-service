@@ -46,7 +46,8 @@ public class JwtGenerator {
             jwt = jwt.substring( 7);
         }
         Claims claims = Jwts.parser().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
-        String email = claims.get("email", String.class);
+        String email = claims.getSubject();
+        System.out.println("email recieved from jwt:"+jwt);
         return email;
     }
 

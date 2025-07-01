@@ -38,7 +38,7 @@ public class RestaurantServiceImpl implements IRestaurantService {
         createdRestaurant.setOwner(user);
 
 
-        return createdRestaurant;
+        return restaurantRepository.save(createdRestaurant);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class RestaurantServiceImpl implements IRestaurantService {
     public Restaurant findRestaurantByUserId(Long userId) throws Exception {
         Restaurant restaurant = restaurantRepository.findByOwnerId(userId);
         if(restaurant==null){
-            throw new Exception("Not found!");
+            throw new Exception("Not found with userId!"+userId);
         }
         return restaurant;
     }
