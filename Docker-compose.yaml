@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql_container
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
+      interval: 10s
+      start_period: 10s
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: user_order_master
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - springboot-net
+
+  springboot:
+    build: .
+    container_name: food_ordering_system_project
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/user_order_master
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root123
+    networks:
+      - springboot-net
+
+volumes:
+  mysql_data:
+
+networks:
+  springboot-net:
