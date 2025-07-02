@@ -13,7 +13,7 @@ services:
       interval: 10s
       start_period: 10s
     environment:
-      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_ROOT_PASSWORD: {DB_PASSWORD}
       MYSQL_DATABASE: user_order_master
     volumes:
       - mysql_data:/var/lib/mysql
@@ -29,8 +29,8 @@ services:
       - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/user_order_master
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root123
+      SPRING_DATASOURCE_USERNAME: {DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: {DB_PASSWORD}
     networks:
       - springboot-net
 
