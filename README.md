@@ -54,7 +54,7 @@ food-ordering-service/
 ### 1. Clone the repository
 on your git bash, please enter the following commands:
 
-a) git clone https://github.com/whoa12/Food-Ordering-Website.git
+a) git clone https://github.com/whoa12/food-ordering-service.git
 
 b) cd Food-Ordering-Website
 
