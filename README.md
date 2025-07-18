@@ -56,7 +56,7 @@ on your git bash, please enter the following commands:
 
 a) git clone https://github.com/whoa12/food-ordering-service.git
 
-b) cd Food-Ordering-Website
+b) cd food-ordering-service
 
 ### 2. Configure the Database
 Before running the application, please make sure that you have MySQL installed and running on your system.
